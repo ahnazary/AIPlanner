@@ -9,3 +9,5 @@
 **.log
 finance/src/data**
 .ruff_cache**
+**token.json
+**credentials.json
