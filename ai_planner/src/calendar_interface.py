@@ -1,4 +1,3 @@
-import datetime
 import os.path
 
 from google.auth.transport.requests import Request
@@ -7,8 +6,8 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
-from src.exceptions import NoCredentialsError, NoEventsError
-from src.config import SCOPES
+from exceptions import NoCredentialsError
+from config import SCOPES
 
 
 class CalendarInterface:
@@ -42,7 +41,7 @@ class CalendarInterface:
         service = build("calendar", "v3", credentials=creds)
 
         return service
-    
+
     def add_event(self, event, calendarId: str = "primary"):
         """
         Method that adds an event to the user's primary calendar
