@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .chat-container {
+            width: 80%;
+            max-width: 600px;
+            background-color: #333;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        .messages {
+            max-height: 400px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+        .message {
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            white-space: pre-wrap; /* Preserve whitespace and newlines */
+        }
+        .message.user {
+            background-color: #444;
+            text-align: right;
+        }
+        .message.bot {
+            background-color: #555;
+            text-align: left;
+        }
+        input[type="text"] {
+            width: calc(100% - 150px);
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin-right: 10px;
+            background-color: #222;
+            color: white;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #666;
+            color: white;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #777;
+        }
+        .quit-button {
+            background-color: red;
+        }
+        .quit-button:hover {
+            background-color: darkred;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="messages" id="messages">
+            {% for msg in conversations %}
+                <div class="message {{ msg.sender }}">{{ msg.message }}</div>
+            {% endfor %}
+        </div>
+        <form id="messageForm">
+            <input type="text" id="messageInput" placeholder="Type a message..." required>
+            <button type="submit">Send</button>
+            <button type="button" class="quit-button" id="quitButton">Quit</button>
+        </form>
+    </div>
+
+    <script>
+        const messageForm = document.getElementById('messageForm');
+        const messageInput = document.getElementById('messageInput');
+        const messagesDiv = document.getElementById('messages');
+        const quitButton = document.getElementById('quitButton');
+
+        messageForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const userMessage = messageInput.value;
+
+            fetch('/send_message', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `message=${userMessage}`,
+            })
+            .then(response => response.json())
+            .then(data => {
+                messagesDiv.innerHTML = '';
+                data.forEach(msg => {
+                    const messageDiv = document.createElement('div');
+                    messageDiv.classList.add('message', msg.sender);
+                    messageDiv.textContent = msg.message;
+                    messagesDiv.appendChild(messageDiv);
+                });
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            });
+
+            messageInput.value = '';
+        });
+
+        quitButton.addEventListener('click', function() {
+            fetch('/quit', {
+                method: 'POST',
+            })
+            .then(response => {
+                alert('Server shutting down...');
+            });
+        });
+
+        // Scroll to the bottom of the messages div to show the latest messages
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    </script>
+</body>
+</html>
