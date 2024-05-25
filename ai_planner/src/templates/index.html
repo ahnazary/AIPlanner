@@ -32,7 +32,6 @@
             padding: 10px;
             border-radius: 5px;
             margin-bottom: 10px;
-            white-space: pre-wrap; /* Preserve whitespace and newlines */
         }
         .message.user {
             background-color: #444;
@@ -42,14 +41,17 @@
             background-color: #555;
             text-align: left;
         }
-        input[type="text"] {
-            width: calc(100% - 150px);
+        textarea {
+            width: calc(100% - 230px);
             padding: 10px;
             border: none;
             border-radius: 5px;
             margin-right: 10px;
             background-color: #222;
             color: white;
+            resize: none; /* Disable manual resizing */
+            overflow: hidden; /* Hide overflow */
+            height: 40px; /* Initial height */
         }
         button {
             padding: 10px 20px;
@@ -69,18 +71,25 @@
         .quit-button:hover {
             background-color: darkred;
         }
+        .add-event-button {
+            background-color: green;
+        }
+        .add-event-button:hover {
+            background-color: darkgreen;
+        }
     </style>
 </head>
 <body>
     <div class="chat-container">
         <div class="messages" id="messages">
             {% for msg in conversations %}
-                <div class="message {{ msg.sender }}">{{ msg.message }}</div>
+                <div class="message {{ msg.sender }}">{{ msg.message | replace('\n', '<br>')|safe }}</div>
             {% endfor %}
         </div>
         <form id="messageForm">
-            <input type="text" id="messageInput" placeholder="Type a message..." required>
+            <textarea id="messageInput" placeholder="Type a message..." required></textarea>
             <button type="submit">Send</button>
+            <button type="button" class="add-event-button" id="addEventButton">Add Event</button>
             <button type="button" class="quit-button" id="quitButton">Quit</button>
         </form>
     </div>
@@ -89,19 +98,32 @@
         const messageForm = document.getElementById('messageForm');
         const messageInput = document.getElementById('messageInput');
         const messagesDiv = document.getElementById('messages');
+        const addEventButton = document.getElementById('addEventButton');
         const quitButton = document.getElementById('quitButton');
+
+        messageInput.addEventListener('input', function() {
+            messageInput.style.height = 'auto';
+            messageInput.style.height = (messageInput.scrollHeight) + 'px';
+        });
 
         messageForm.addEventListener('submit', function(event) {
             event.preventDefault();
 
             const userMessage = messageInput.value;
 
+            // Display the user's message immediately
+            const userMessageDiv = document.createElement('div');
+            userMessageDiv.classList.add('message', 'user');
+            userMessageDiv.innerHTML = userMessage.replace(/\n/g, '<br>');
+            messagesDiv.appendChild(userMessageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
             fetch('/send_message', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                body: `message=${userMessage}`,
+                body: `message=${encodeURIComponent(userMessage)}`,
             })
             .then(response => response.json())
             .then(data => {
@@ -109,13 +131,31 @@
                 data.forEach(msg => {
                     const messageDiv = document.createElement('div');
                     messageDiv.classList.add('message', msg.sender);
-                    messageDiv.textContent = msg.message;
+                    messageDiv.innerHTML = msg.message.replace(/\n/g, '<br>');
                     messagesDiv.appendChild(messageDiv);
                 });
                 messagesDiv.scrollTop = messagesDiv.scrollHeight;
             });
 
             messageInput.value = '';
+            messageInput.style.height = '40px'; // Reset height after submission
+        });
+
+        addEventButton.addEventListener('click', function() {
+            fetch('/add_event', {
+                method: 'POST',
+            })
+            .then(response => response.json())
+            .then(data => {
+                messagesDiv.innerHTML = '';
+                data.forEach(msg => {
+                    const messageDiv = document.createElement('div');
+                    messageDiv.classList.add('message', msg.sender);
+                    messageDiv.innerHTML = msg.message.replace(/\n/g, '<br>');
+                    messagesDiv.appendChild(messageDiv);
+                });
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            });
         });
 
         quitButton.addEventListener('click', function() {
