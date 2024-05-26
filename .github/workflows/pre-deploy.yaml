@@ -3,12 +3,12 @@ name: pre-deploy (linters)
 on:
   push:
     paths:
-      - 'finance/**'
+      - 'ai_planner/**'
     branches: [ main ]
   pull_request:
     branches: [ main ]
     paths:
-      - 'finance/**'
+      - 'ai_planner/**'
   
 jobs:
   pylint:
