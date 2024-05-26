@@ -2,9 +2,17 @@
 ![Code style: isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336)
 ![flake8](https://img.shields.io/badge/flake8-checked-blue)
 
-<div style="text-align: center;">
-  <img src="docs/logo.png" width="400" height="400">
-</div>
+
+<style>
+  .center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+</style>
+
+<img src="docs/logo.png" width="400" height="400" class="center">
+
 
 
 # AIPLanner
@@ -18,9 +26,7 @@ At its core, the tool uses 2 main components which require manual setup before r
 
 Below is a chart illustrating the flow of the tool:
 
-<div style="text-align: center;">
-  <img src="docs/AIpllaner_schema.png" width="700" height="600">
-</div>
+<img src="docs/AIpllaner_schema.png" width="700" height="600" class="center">
 
 ## Usage
 
