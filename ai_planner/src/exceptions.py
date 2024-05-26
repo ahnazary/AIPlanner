@@ -11,8 +11,8 @@ class NoCredentialsError(Exception):
     def __init__(
         self,
         message="""
-        No credentials found. 
-        Make sure a file named 'credentials.json' is present in the root directory. 
+        No credentials found.
+        Make sure a file named 'credentials.json' is present in the root directory.
         Check this link for more information:
         https://developers.google.com/calendar/api/quickstart/python#authorize_credentials_for_a_desktop_application
         """,

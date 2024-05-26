@@ -1,31 +1,11 @@
-# python-template-repo
-Python template repository: A ready-to-use template repository with generic Github action workflows, directory structure and files. 
+![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)
+![Code style: isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336)
+![flake8](https://img.shields.io/badge/flake8-checked-blue)
 
-## Setup sphinx documentation
+<div style="text-align: center;">
+  <img src="docs/logo.png" width="400" height="400">
+</div>
 
-1. Install sphinx requirements (already in requirements.txt)
 
-```bash
-pip install -r requirements.txt
-```
+# AIPLanner
 
-2 . Create sphinx documentation base files
-
-```bash
-sphinx-quickstart         
-sphinx-apidoc -o docs src
-```
-
-3. Build sphinx documentation
-
-```bash
-cd docs
-make html
-```
-
-or 
-
-```bash
-cd docs
-sphinx-build docs build    
-```

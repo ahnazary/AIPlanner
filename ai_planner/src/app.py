@@ -14,7 +14,8 @@ event = None
 conversations = [
     {
         "sender": "bot",
-        "message": "Hi, I'm your calendar assistant. What event would you like to add to your calendar?",
+        "message": """Hi, I'm your calendar assistant.
+        What event would you like to add to your calendar?""",
     }
 ]
 
@@ -40,7 +41,9 @@ def send_message():
         event, bot_response = ollama_interface.refine_message(response)
     else:
         event = None
-        bot_response = "I'm sorry, I didn't understand that. Could you please add more details?"
+        bot_response = (
+            "I'm sorry, I didn't understand that. Could you please add more details?"
+        )
 
     # logger.info(f"Bot response: {bot_response}")
     conversations.append({"sender": "bot", "message": bot_response})

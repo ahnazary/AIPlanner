@@ -6,7 +6,6 @@ from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
-from googleapiclient.errors import HttpError
 
 
 class CalendarInterface:
@@ -50,7 +49,9 @@ class CalendarInterface:
         event: dict
             Dictionary containing the event details
             The general structure of the event dictionary is as follows:
-            (Checkout this link for more details: https://developers.google.com/calendar/api/v3/reference/events)
+            (Checkout this link for more details:
+            https://developers.google.com/calendar/api/v3/reference/events)
+
             {
                 "kind": "calendar#event",
                 "etag": etag,

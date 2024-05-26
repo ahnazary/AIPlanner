@@ -52,4 +52,7 @@ class OllamaInterface:
             return None, user_message
         start = user_message.find("{")
         end = user_message.rfind("}")
-        return (ast.literal_eval(user_message[start : end + 1]), user_message)
+        return (
+            ast.literal_eval(user_message[start : end + 1]),  # Noqa E203
+            user_message,
+        )  # Noqa E203
