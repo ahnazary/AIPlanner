@@ -8,7 +8,7 @@
 </p>
 
 
-# AIPLanner
+# AI PLanner
 
 AIPlanner is a Python based tool for adding events to google calendar based on the user's input using large language models.
 
