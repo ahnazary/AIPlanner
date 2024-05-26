@@ -15,38 +15,36 @@ AIPlanner is a Python based tool that adds events to google calendar based on th
 At its core, the tool uses 2 main components which require manual setup before running the tool:
 
 1. [Ollama](https://ollama.com/) for natural language understanding. Generates responses and interacts with the user to extract info of the event to be added to the calendar.
-2. [Google Calendar API](https://developers.google.com/calendar) for adding events to one's calendar
+2. [Google Calendar API](https://developers.google.com/calendar) for adding events to user's calendar
 
 Below is a chart illustrating the flow of the tool:
 
-<div style="text-align: center;">
+<p align="center">
   <img src="docs/AIpllaner_schema.png" width="700" height="600">
-</div>
+</p>
 
-## Usage
+## Usage and Interfacing
 
 1. The user interacts with the tool through a web interface. The tool asks the user for the event's details and the user responds with the details by typing them in the chat and pressing send button.
 
 <br>
-
-<div style="text-align: center;">
-  <img src="docs/event_example_1.png" width="500" height="300">
-</div>
+<p align="center">
+  <img src="docs/event_example_1.png" width="500" height="280">
+</p>
 
 2. The tool uses Ollama to understand the user's input and extract the event's details. The tool then asks the user to confirm the details extracted from the user's input. Below is an example of the tool asking the user to confirm the event's details after extracting data about a dentist appointment:
 
 <br>
-<div style="text-align: center;">
-  <img src="docs/event_example_2.png" width="500" height="450">
-</div>
+<p align="center">
+  <img src="docs/event_example_2.png" width="500" height="480">
+</p>
 
 3. The user confirms the event's details by pressing the `Add Event` button. The tool then adds the event to the user's Google Calendar. Below is an example of the event created in the user's Google Calendar:
 
 <br>
-<div style="text-align: center;">
+<p align="center">
   <img src="docs/google_event_created.png" width="500" height="350">
-</div>
-
+</p>
 
 ## Installation and Setup
 
@@ -78,9 +76,11 @@ pip install -r requirements.txt
 
 ### 4. Setup Ollama
 
-    4.1 Downlaod and install Ollama following this Tutorial: [Ollama Installation](https://github.com/ollama/ollama?tab=readme-ov-file#:~:text=Get%20up%20and,Manual%20install%20instructions)
+- follow the following steps to setup Ollama:
 
-    4.2 Pull proper Ollama image 
+    4.1 Downlaod and install Ollama following this Tutorial: [Ollama Installation](https://github.com/ollama/ollama?tab=readme-ov-file)
+
+    4.2 Pull proper Ollama model
     
     ```bash
     ollama pull llama3
@@ -100,8 +100,8 @@ pip install -r requirements.txt
 python ai_planner/src/app.py
 ```
 
-head to `http://127.0.0.1:5000/` to interact with the tool:
+head to `http://127.0.0.1:5000/` to interact with the tool. Below is what you should see when you run the tool:
 
-<div style="text-align: center;">
-  <img src="docs/UI_greeting.png" width="500" height="250">
-</div>
+<p align="center">
+  <img src="docs/UI_greeting.png" width="500" height="280">
+</p>
