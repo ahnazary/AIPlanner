@@ -40,7 +40,7 @@ def send_message():
         event, bot_response = ollama_interface.refine_message(response)
     else:
         event = None
-        bot_response = "I'm sorry, I didn't understand that. Could you please rephrase?"
+        bot_response = "I'm sorry, I didn't understand that. Could you please add more details?"
 
     # logger.info(f"Bot response: {bot_response}")
     conversations.append({"sender": "bot", "message": bot_response})

@@ -1,3 +1,7 @@
+"""
+Modukle to interface with the Ollama AI planner
+"""
+
 import ast
 
 import ollama
@@ -30,11 +34,10 @@ class OllamaInterface:
 
     def refine_message(self, user_message: str) -> tuple:
         """
-        Method to refine the user message before showing it in the UI.
-        It seperates extracts the json object from the bot message string to add it to calcender.
+        MEthod to extract event in python dictionary format from the bot message
+        It extracts the json object from the bot message string.
         The method cuts content between { and } if they exist.
 
-        it returns the json object extracted from the message and the rest of the message.
         Args:
         -----
         user_message: str
@@ -42,8 +45,8 @@ class OllamaInterface:
 
         Returns:
         --------
-        str
-            The refined message
+        tuple
+            A tuple containing the python dictionary event and the user message
         """
         if "{" not in user_message:
             return None, user_message
