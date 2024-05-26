@@ -10,18 +10,13 @@
 
 # AIPLanner
 
-AIPlanner is a Python based tool that adds events to google calendar based on the user's input using large language models.
+AIPlanner is a Python based tool for adding events to google calendar based on the user's input using large language models.
 
 At its core, the tool uses 2 main components which require manual setup before running the tool:
 
 1. [Ollama](https://ollama.com/) for natural language understanding. Generates responses and interacts with the user to extract info of the event to be added to the calendar.
 2. [Google Calendar API](https://developers.google.com/calendar) for adding events to user's calendar
 
-Below is a chart illustrating the flow of the tool:
-
-<p align="center">
-  <img src="docs/AIpllaner_schema.png" width="700" height="600">
-</p>
 
 ## Usage and Interfacing
 
@@ -44,6 +39,14 @@ Below is a chart illustrating the flow of the tool:
 <br>
 <p align="center">
   <img src="docs/google_event_created.png" width="500" height="350">
+</p>
+
+## Tool Flow
+
+Below is a chart illustrating the flow of the tool:
+
+<p align="center">
+  <img src="docs/AIpllaner_schema.png" width="700" height="600">
 </p>
 
 ## Installation and Setup
