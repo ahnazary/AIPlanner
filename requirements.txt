@@ -4,3 +4,4 @@ google-auth-oauthlib
 ollama==0.2.0
 protobuf==5.27.0
 Flask==3.0.3
+ics==0.7.2
