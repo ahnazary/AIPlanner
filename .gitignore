@@ -11,3 +11,5 @@ finance/src/data**
 .ruff_cache**
 **token.json
 **credentials.json
+calendar.ics
+test.ics
