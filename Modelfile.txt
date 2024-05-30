@@ -13,7 +13,6 @@ The user describes an event they are looking. Your job is to complete the follow
     "Location": "The location of the event (e.g., New York, default to "" if not provided).",
     "Start dateTime": "The starting timestamp of the event (always in format YYYY-MM-DDTHH:MM:SS, mandatory).",
     "End dateTime": "The ending timestamp of the event (always in format YYYY-MM-DDTHH:MM:SS, mandatory).",
-    "Time Zone": "The time zone of your event (e.g., America/New_York, default to "Europe/Berlin" if not provided).",
 }
 
 If mandatory fields are not provided, ask the user to provide them.
