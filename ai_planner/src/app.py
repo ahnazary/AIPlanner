@@ -2,8 +2,8 @@ import os
 import signal
 from logging import getLogger
 
-from calendar_interface import CalendarInterface
 from flask import Flask, jsonify, render_template, request
+from icalendar_interface import ICalendarInterface
 from ollama_interface import OllamaInterface
 
 logger = getLogger(__name__)
@@ -21,6 +21,7 @@ conversations = [
 
 # calendar_interface = CalendarInterface()
 ollama_interface = OllamaInterface()
+icalendar_interface = ICalendarInterface()
 
 
 @app.route("/")
@@ -62,35 +63,20 @@ def send_message():
 
 @app.route("/add_event", methods=["POST"])
 def add_event():
+    # Sample prompt:
+    # I have a dentist appointment on Monday at 10:00 AM which lasts for 1 hour in Munich.
     global event
     if event:
-        # add event to the calendar
-        calendar_interface = CalendarInterface()
         # remove spaces from event keys and make only first letter lowercase
         event = {k.replace(" ", "").lower(): v for k, v in event.items()}
-        normalised_event = {
-            "summary": event["summary"],
-            "description": event["description"],
-            "location": event["location"],
-            "start": {
-                "dateTime": event["startdatetime"],
-                "timeZone": (
-                    event["timezone"] if "timezone" in event else "Europe/Berlin"
-                ),
-            },
-            "end": {
-                "dateTime": event["enddatetime"],
-                "timeZone": (
-                    event["timezone"] if "timezone" in event else "Europe/Berlin"
-                ),
-            },
-        }
-
-        # drops keys with None values or ""
-        normalised_event = {k: v for k, v in normalised_event.items() if v}
-        logger.info(f"Normalised event: {normalised_event}")
-        calendar_interface.add_event(normalised_event)
-        logger.info("Event added to the calendar.")
+        icalendar_interface.add_event(
+            summary=event["summary"],
+            description=event["description"],
+            start_time=event["startdatetime"],
+            end_time=event["enddatetime"],
+        )
+        logger.info(f"event added to the calendar: {event}")
+        icalendar_interface.write(file_path="calendar.ics")
     else:
         logger.info("No event data available to add to the calendar.")
 
