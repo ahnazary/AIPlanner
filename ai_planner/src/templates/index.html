@@ -88,9 +88,10 @@
         </div>
         <form id="messageForm">
             <textarea id="messageInput" placeholder="Type a message..." required></textarea>
-            <button type="submit">Send</button>
+            <button type="submit">Send Message</button>
             <button type="button" class="add-event-button" id="addEventButton">Add Event</button>
             <button type="button" class="quit-button" id="quitButton">Quit</button>
+            <button type="button" id="downloadButton">Download ICS file</button>
         </form>
     </div>
 
@@ -100,6 +101,7 @@
         const messagesDiv = document.getElementById('messages');
         const addEventButton = document.getElementById('addEventButton');
         const quitButton = document.getElementById('quitButton');
+        const downloadButton = document.getElementById('downloadButton');
 
         messageInput.addEventListener('input', function() {
             messageInput.style.height = 'auto';
@@ -164,6 +166,21 @@
             })
             .then(response => {
                 alert('Server shutting down...');
+            });
+        });
+
+        downloadButton.addEventListener('click', function() {
+            fetch('/download')
+            .then(response => response.blob())
+            .then(blob => {
+                const url = window.URL.createObjectURL(new Blob([blob]));
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                a.download = 'calendar.ics';
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
             });
         });
 
