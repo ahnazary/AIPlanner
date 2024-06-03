@@ -22,7 +22,6 @@ class ICalendarInterface:
         start_time: str,
         end_time: str,
         location: str = None,
-        timezone: str = None,
     ):
         """
         Add an event to the calendar.
@@ -51,4 +50,4 @@ class ICalendarInterface:
         with open(file_path, "w") as file:
             file.writelines(self.calendar)
 
-        return os.path.abspath(file_path)
+        return os.path.abspath("src/" + file_path)

@@ -2,7 +2,7 @@ import os
 import signal
 from logging import getLogger
 
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, jsonify, render_template, request, send_file
 from icalendar_interface import ICalendarInterface
 from ollama_interface import OllamaInterface
 
@@ -64,7 +64,6 @@ def send_message():
 @app.route("/add_event", methods=["POST"])
 def add_event():
     # Sample prompt:
-    # I have a dentist appointment on Monday at 10:00 AM which lasts for 1 hour in Munich.
     global event
     if event:
         # remove spaces from event keys and make only first letter lowercase
@@ -83,11 +82,20 @@ def add_event():
     return jsonify(conversations)
 
 
+@app.route("/download", methods=["GET"])
+def download():
+    # check if the calendar file exists
+    if not os.path.exists("calendar.ics"):
+        return "No calendar file found.", 404
+    return send_file("calendar.ics", as_attachment=True)
+
+
 @app.route("/quit", methods=["POST"])
 def quit():
     os.kill(os.getpid(), signal.SIGINT)
     return "Server shutting down..."
 
 
+# I have a dentist appointment on 4th of June 2024 of 10:00 AM for 1 hour in Munich.
 if __name__ == "__main__":
     app.run(debug=True)
