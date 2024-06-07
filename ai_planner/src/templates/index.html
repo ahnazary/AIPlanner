@@ -89,9 +89,9 @@
         <form id="messageForm">
             <textarea id="messageInput" placeholder="Type a message..." required></textarea>
             <button type="submit">Send Message</button>
-            <button type="button" class="add-event-button" id="addEventButton">Accept and Add Event</button>
+            <button type="button" class="add-event-button" id="addEventButton">Add Event</button>
             <button type="button" class="quit-button" id="quitButton">Quit</button>
-            <button type="button" id="downloadButton">Download ICS file</button>
+            <button type="button" id="downloadButton">Download .ics File</button>
         </form>
     </div>
 
@@ -118,6 +118,13 @@
             userMessageDiv.classList.add('message', 'user');
             userMessageDiv.innerHTML = userMessage.replace(/\n/g, '<br>');
             messagesDiv.appendChild(userMessageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+            // Display the bot's "processing" message immediately
+            const botProcessingMessageDiv = document.createElement('div');
+            botProcessingMessageDiv.classList.add('message', 'bot');
+            botProcessingMessageDiv.innerHTML = "Please wait while I process your response...";
+            messagesDiv.appendChild(botProcessingMessageDiv);
             messagesDiv.scrollTop = messagesDiv.scrollHeight;
 
             fetch('/send_message', {

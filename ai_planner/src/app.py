@@ -33,8 +33,13 @@ def index():
 def send_message():
     user_message = request.form["message"]
     # Add user message to conversation
-    logger.info(f"User message: {user_message}")
+    logger.warning(f"User message: {user_message}")
     conversations.append({"sender": "user", "message": user_message})
+
+    # Add processing message immediately
+    conversations.append(
+        {"sender": "bot", "message": "Please wait while I process your response..."}
+    )
 
     global event
     response = ollama_interface.chat(user_message)
@@ -42,11 +47,10 @@ def send_message():
         event, bot_response = ollama_interface.refine_message(response)
     else:
         event = None
-        bot_response = (
-            "I'm sorry, I didn't understand that. Could you please add more details?"
-        )
+        bot_response = "I'm sorry, I didn't understand that. Could you please rephrase?"
 
-    # logger.info(f"Bot response: {bot_response}")
+    # Replace the processing message with the actual bot response
+    conversations.pop()
     conversations.append({"sender": "bot", "message": bot_response})
 
     # if the user typed quit then the chat will be closed
@@ -75,7 +79,9 @@ def add_event():
             end_time=event["enddatetime"],
         )
         logger.info(f"event added to the calendar: {event}")
-        icalendar_interface.write(file_path="calendar.ics")
+        icalendar_interface.write(
+            file_path=os.path.join(os.getcwd(), "ai_planner", "src", "calendar.ics")
+        )
     else:
         logger.info("No event data available to add to the calendar.")
 
@@ -96,6 +102,5 @@ def quit():
     return "Server shutting down..."
 
 
-# I have a dentist appointment on 4th of June 2024 of 10:00 AM for 1 hour in Munich.
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=5050)
