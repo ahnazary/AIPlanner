@@ -1,15 +1,15 @@
 FROM python:3.10
 
-
 WORKDIR /app
-# install ollama
+
+# Install ollama
 RUN apt-get update && apt-get install -y coreutils
 RUN curl -fsSL https://ollama.com/install.sh | sh
 
-# confirm installation
+# Confirm installation
 RUN ollama --version
 
-# create a new model
+# Create a new model
 COPY Modelfile.txt Modelfile.txt
 COPY run-ollama.sh run-ollama.sh
 
@@ -22,5 +22,5 @@ COPY ai_planner/ ai_planner/
 
 EXPOSE 5050
 
-CMD ["python", "ai_planner/src/app.py"]
-
+# Start ollama in the background and then start the Flask app
+CMD ["sh", "-c", "ollama & sleep 5 && python ai_planner/src/app.py"]
