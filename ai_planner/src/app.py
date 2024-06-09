@@ -1,4 +1,5 @@
 import os
+import pathlib
 import signal
 from logging import getLogger
 
@@ -45,6 +46,7 @@ def send_message():
     response = ollama_interface.chat(user_message)
     if response:
         event, bot_response = ollama_interface.refine_message(response)
+        bot_response = response
     else:
         event = None
         bot_response = "I'm sorry, I didn't understand that. Could you please rephrase?"
@@ -80,7 +82,9 @@ def add_event():
         )
         logger.info(f"event added to the calendar: {event}")
         icalendar_interface.write(
-            file_path=os.path.join(os.getcwd(), "ai_planner", "src", "calendar.ics")
+            file_path=os.path.join(
+                pathlib.Path(__file__).parent.absolute(), "calendar.ics"
+            )
         )
     else:
         logger.info("No event data available to add to the calendar.")
