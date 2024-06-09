@@ -1,10 +1,21 @@
 version: '3.8'
 
 services:
-  my_service:
-    image: aiplanner
+  ollama:
+    image: aiplanner-ollama
     build:
-      context: .
+      context: ./ollama_service
+      dockerfile: Dockerfile
+    container_name: ollama_service
+    ports:
+      - "11434:11434"
+
+  aiplanner:
+    image: flask_aiplanner
+    build:
+      context: ./aiplanner
       dockerfile: Dockerfile
     ports:
       - "5050:5050"
+    depends_on:
+      - ollama
