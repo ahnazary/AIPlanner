@@ -1,0 +1,8 @@
+# Google API support is not available for now
+# google-api-python-client 
+# google-auth-httplib2
+# google-auth-oauthlib
+ollama==0.2.0
+protobuf==5.27.0
+Flask==3.0.3
+ics==0.7.2
