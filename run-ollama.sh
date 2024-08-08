@@ -3,5 +3,5 @@
 ollama serve &
 ollama list
 # ollama pull llama3
-ollama pull moondream
+# ollama pull moondream
 ollama create aiplanner -f ./Modelfile.txt
