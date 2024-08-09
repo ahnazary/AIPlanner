@@ -8,9 +8,8 @@ ENTRYPOINT []
 COPY Modelfile.txt Modelfile.txt
 COPY ./run-ollama.sh run-ollama.sh
 
-# RUN chmod +x run-ollama.sh \
-#     && ./run-ollama.sh
-
+RUN chmod +x run-ollama.sh \
+    && ./run-ollama.sh
 
 RUN apt-get update && apt-get install -y \
     coreutils \
@@ -32,16 +31,9 @@ RUN pip install -r requirements.txt
 
 COPY ai_planner/src src
 
-COPY start.sh start.sh
-
 EXPOSE 11434
 EXPOSE 5050
 
-# # Add this line to ensure the script has executable permissions
-RUN chmod +x /app/start.sh
+# run ollama serve & python3 src/app.py
 
-# # Use CMD to run the script
-# CMD ["./start.sh"]
-
-# run ollama serve & python src/app.py
-CMD ["./start.sh"]
+CMD ollama serve & python3 src/app.py

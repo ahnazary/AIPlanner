@@ -70,6 +70,7 @@ def send_message():
 @app.route("/add_event", methods=["POST"])
 def add_event():
     # Sample prompt:
+    # I have a dentist appointment on 4th of June 2024 of 10:00 AM for 1 hour in Munich.
     global event
     if event:
         # remove spaces from event keys and make only first letter lowercase
