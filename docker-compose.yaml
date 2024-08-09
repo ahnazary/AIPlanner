@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   aiplanner:
-    image: flask_aiplanner
+    image: aiplanner
     build:
       context: .
       dockerfile: Dockerfile
