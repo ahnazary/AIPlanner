@@ -1,13 +1,13 @@
 import os
 import pathlib
 import signal
-from logging import getLogger
 
 from flask import Flask, jsonify, render_template, request, send_file
 from icalendar_interface import ICalendarInterface
+from lib import custom_logger
 from ollama_interface import OllamaInterface
 
-logger = getLogger(__name__)
+logger = custom_logger()
 app = Flask(__name__)
 event = None
 
@@ -34,7 +34,7 @@ def index():
 def send_message():
     user_message = request.form["message"]
     # Add user message to conversation
-    logger.warning(f"User message: {user_message}")
+    logger.info(f"User message: {user_message}")
     conversations.append({"sender": "user", "message": user_message})
 
     # Add processing message immediately
@@ -73,11 +73,13 @@ def add_event():
     # I have a dentist appointment on 4th of June 2024 of 10:00 AM for 1 hour in Munich.
     global event
     if event:
+        logger.info(f"Event has been extracted.")
         # remove spaces from event keys and make only first letter lowercase
         event = {k.replace(" ", "").lower(): v for k, v in event.items()}
+        logger.info(f"Event data: {event}")
         icalendar_interface.add_event(
             summary=event["summary"],
-            description=event["description"],
+            description=event["description"] if "description" in event else " ",
             start_time=event["startdatetime"],
             end_time=event["enddatetime"],
         )
