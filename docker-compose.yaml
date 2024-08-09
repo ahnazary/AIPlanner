@@ -4,7 +4,7 @@ services:
   aiplanner:
     image: flask_aiplanner
     build:
-      context: ./aiplanner
+      context: .
       dockerfile: Dockerfile
     ports:
       - "5050:5050"
