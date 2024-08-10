@@ -26,14 +26,14 @@ RUN apt-get update && \
 # Ensure python3 points to python3.10
 RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.10 1
 
+# Install python dependencies
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
+# Copy the source code
 COPY ai_planner/src src
 
 EXPOSE 11434
 EXPOSE 5050
-
-# run ollama serve & python3 src/app.py
 
 CMD ollama serve & python3 src/app.py
