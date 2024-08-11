@@ -54,7 +54,7 @@ def send_message():
         bot_response = response
     else:
         event = None
-        bot_response = "I'm sorry, I didn't understand that. Could you please rephrase your request?"
+        bot_response = "I'm sorry, I didn't understand that. Could you please rephrase your request?"  # noqa E501
 
     # Replace the processing message with the actual bot response
     conversations.pop()
@@ -78,7 +78,7 @@ def add_event():
     # Got have a dentist appointment on 26th of August 2024 of 10:00 AM for 1 hour in Berlin.
     global event
     if event:
-        logger.info(f"Event has been extracted.")
+        logger.info("Event has been extracted.")
         # remove spaces from event keys and make only first letter lowercase
         event = {k.replace(" ", "").lower(): v for k, v in event.items()}
         logger.info(f"Event data: {event}")
@@ -95,7 +95,7 @@ def add_event():
             )
         )
         logger.info(
-            f"Calendar file created successfully on path: {os.path.join(pathlib.Path(__file__).parent.absolute(), 'calendar.ics')}"
+            f"Calendar file created successfully on path: {os.path.join(pathlib.Path(__file__).parent.absolute(), 'calendar.ics')}"  # noqa E501
         )
     else:
         logger.info("No event data available to add to the calendar.")
