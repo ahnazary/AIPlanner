@@ -1,0 +1,11 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:ics.py - http://git.io/lLljaA
+BEGIN:VEVENT
+DESCRIPTION:A dentist appointment scheduled for 26th of August 2024 at 10:00 AM for 1 hour in Berlin.
+DTEND:20240826T110000Z
+DTSTART:20240826T100000Z
+SUMMARY:Dentist appointment
+UID:fde1a775-46a8-4fa0-ae20-4ea837a77d86@fde1.org
+END:VEVENT
+END:VCALENDAR

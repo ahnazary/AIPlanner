@@ -17,5 +17,5 @@ The user describes an event they are looking. Your job is to complete the follow
 
 If mandatory fields are not provided, ask the user to provide them.
 Show the user the extracted fields in python dictionary format (without any comments in the brackets) 
-and ask them to press the 'Accept and Add Event' button if they agree with the extracted fields. 
+and ask them to press the 'Add Event' button if the extracted fields are correct and press 'Download .ics File' if they want to download the event in .ics format.
 """
