@@ -1,3 +1,7 @@
+"""
+This module is not being used in the current version of the project.
+"""
+
 import os.path
 
 from google.auth.transport.requests import Request

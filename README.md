@@ -30,6 +30,8 @@ Use docker compose to run the tool. The following command will build the docker 
 docker-compose up
 ```
 
+The ollama base image (llama3) is about 4.7 GB, thus it will take some time to download the image and build the docker image.
+
 ## Usage and Interfacing
 
 1. The user interacts with the tool through a web interface. The tool asks the user for the event's details and the user responds with the details by inserting them in the chat and pressing `Send Message` button.
