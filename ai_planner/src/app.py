@@ -16,7 +16,9 @@ conversations = [
     {
         "sender": "bot",
         "message": """Hi, I'm your calendar assistant.
-        What event would you like to add to your calendar?""",
+        What event would you like to add to your calendar?
+        Please provide the event details including event start and end time and some description.
+        """,
     }
 ]
 
@@ -39,7 +41,10 @@ def send_message():
 
     # Add processing message immediately
     conversations.append(
-        {"sender": "bot", "message": "Please wait while I process your response..."}
+        {
+            "sender": "bot",
+            "message": "Please wait while I am processing your request...",
+        }
     )
 
     global event
@@ -49,7 +54,7 @@ def send_message():
         bot_response = response
     else:
         event = None
-        bot_response = "I'm sorry, I didn't understand that. Could you please rephrase?"
+        bot_response = "I'm sorry, I didn't understand that. Could you please rephrase your request?"
 
     # Replace the processing message with the actual bot response
     conversations.pop()
@@ -60,7 +65,7 @@ def send_message():
         conversations.append(
             {
                 "sender": "bot",
-                "message": "Thank you for using the calendar assistant. Have a great day!",
+                "message": "Thank you for using aiplanner. Have a great day!",
             }
         )
 
@@ -70,7 +75,7 @@ def send_message():
 @app.route("/add_event", methods=["POST"])
 def add_event():
     # Sample prompt:
-    # I have a dentist appointment on 4th of June 2024 of 10:00 AM for 1 hour in Munich.
+    # Got have a dentist appointment on 26th of August 2024 of 10:00 AM for 1 hour in Berlin.
     global event
     if event:
         logger.info(f"Event has been extracted.")
@@ -89,6 +94,9 @@ def add_event():
                 pathlib.Path(__file__).parent.absolute(), "calendar.ics"
             )
         )
+        logger.info(
+            f"Calendar file created successfully on path: {os.path.join(pathlib.Path(__file__).parent.absolute(), 'calendar.ics')}"
+        )
     else:
         logger.info("No event data available to add to the calendar.")
 
@@ -98,16 +106,21 @@ def add_event():
 @app.route("/download", methods=["GET"])
 def download():
     # check if the calendar file exists
-    if not os.path.exists("calendar.ics"):
+    if not os.path.exists(pathlib.Path(__file__).parent.absolute() / "calendar.ics"):
         return "No calendar file found.", 404
-    return send_file("calendar.ics", as_attachment=True)
+    return send_file(
+        pathlib.Path(__file__).parent.absolute() / "calendar.ics", as_attachment=True
+    )
 
 
 @app.route("/quit", methods=["POST"])
 def quit():
     os.kill(os.getpid(), signal.SIGINT)
+    # delete the calendar file
+    if os.path.exists(pathlib.Path(__file__).parent.absolute() / "calendar.ics"):
+        os.remove(pathlib.Path(__file__).parent.absolute() / "calendar.ics")
     return "Server shutting down..."
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=5050)
+    app.run(host="0.0.0.0", port=5050)
