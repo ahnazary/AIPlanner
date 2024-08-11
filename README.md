@@ -18,7 +18,17 @@ The tool uses a chat interface to interact with the user and extract the event's
 1. [Ollama](https://ollama.com/) for natural language understanding. Generates responses and interacts with the user to extract info of the event to be added to the calendar.
 2. [Flask](https://flask.palletsprojects.com/en/2.0.x/) for the web interface. The user interacts with the tool through a web interface.
 
-<<<<<<< HEAD
+## Requirements
+
+- at least 5.9 GB of free system memory to run Ollama llama3 model.
+
+## Running the tool
+
+Use docker compose to run the tool. The following command will build the docker image and run the tool on `127.0.0.1:5050`.
+
+```bash
+docker-compose up
+```
 
 ## Usage and Interfacing
 
@@ -62,14 +72,3 @@ END:VCALENDAR
 <p align="center">
   <img src="docs/cal_event_created.png" width="280" height="310">
 </p>
-## Requirements
-
-- at least 5.9 GB of free system memory to run Ollama llama3 model.
-
-## Running the tool
-
-Use docker compose to run the tool. The following command will build the docker image and run the tool on `127.0.0.1:5050`.
-
-```bash
-docker-compose up
-```
