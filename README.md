@@ -9,18 +9,18 @@
 
 # AI PLanner
 
-AIPlanner is a Python based tool for summarizing long descriptions of events into a downloadable `.ics` file which can be then added to any calendar application (e.g. Google Calendar, Outlook, etc.). 
+AIPlanner is a Python based tool for transforming descriptions of events into an `.ics` file which can be added to any calendar application (e.g. Google Calendar, Outlook, etc.). 
 
 -------------------
 
-The tool uses a chat interface to interact with the user and extract the event's details. At its core, the tool uses 2 main components:
+The tool uses a chat interface to interact with the user and extract the event's details. At its core, it hinges on the following technologies:
 
 1. [Ollama](https://ollama.com/) for natural language understanding. Generates responses and interacts with the user to extract info of the event to be added to the calendar.
-2. [Flask](https://flask.palletsprojects.com/en/2.0.x/) for the web interface. The user interacts with the tool through a web interface.
+2. [Flask](https://flask.palletsprojects.com/en/2.0.x/) for the web interface and API. The user interacts with the tool through a web interface.
 
 ## Requirements
 
-- at least 5.9 GB of free system memory to run Ollama llama3 model.
+- at least 5.9 GB of free system memory to run Ollama llama3 model. llama3 model is the most lightweight model that generates acceptable responses. More advanced models can also be used but they require more memory. [Here](https://github.com/ollama/ollama#:~:text=Here%20are%20some%20example%20models%20that%20can%20be%20downloaded%3A) you can find other alternative models.
 
 ## Running the tool
 
@@ -30,7 +30,7 @@ Use docker compose to run the tool. The following command will build the docker 
 docker-compose up
 ```
 
-The ollama base image (llama3) is about 4.7 GB, thus it will take some time to download the image and build the docker image.
+The ollama base image (llama3) is about 4.7 GB, thus it will take some time to download and build the docker image.
 
 ## Usage and Interfacing
 
@@ -67,7 +67,7 @@ END:VCALENDAR
 ```
 <br >
 
-4. The `.ics` file can be added to any calendar application (e.g. Google Calendar, Outlook, etc.) by importing it. Below is an example of how the `.ics` file looks like when added to Calendar:
+4. The `.ics` file can be added to any calendar application (e.g. Google Calendar, Outlook, etc.) by importing it. Below an event after adding the `.ics` file to Outlook calendar:
 
 
 <br>
